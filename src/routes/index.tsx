@@ -222,18 +222,7 @@ function App() {
         </header>
         <div className="layout">
           <section className="controls card">
-            <label>1. Första termen</label>
-            <input
-              type="number"
-              step="any"
-              value={start ?? ""}
-              placeholder="Ange värde"
-              onChange={(e) => {
-                setStart(readNumber(e.target.value));
-                restart();
-              }}
-            />
-            <label>2. Räknesätt</label>
+            <label>1. Räknesätt</label>
             <div className="operations">
               {operations.map(([key, label]) => (
                 <button
@@ -250,6 +239,17 @@ function App() {
                 </button>
               ))}
             </div>
+            <label>2. Första termen</label>
+            <input
+              type="number"
+              step="any"
+              value={start ?? ""}
+              placeholder="Ange värde"
+              onChange={(e) => {
+                setStart(readNumber(e.target.value));
+                restart();
+              }}
+            />
             <label>3. Andra termen</label>
             <input
               type="number"

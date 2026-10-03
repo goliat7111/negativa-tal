@@ -1,0 +1,58 @@
+/* Original styling from negativa-tal-app (migration, preserved as-is) */
+.negativa-tal-root * { box-sizing: border-box; }
+.negativa-tal-root button, .negativa-tal-root input { font: inherit; }
+.negativa-tal-root { min-height: 100vh; background: linear-gradient(#020617,#312e81,#0f172a); color: white; padding: 24px; }
+.negativa-tal-root .shell { max-width: 1150px; margin: auto; }
+.negativa-tal-root header { display: flex; justify-content: space-between; align-items: end; gap: 16px; margin-bottom: 20px; }
+.negativa-tal-root header small { color: #a5b4fc; font-weight: 800; }
+.negativa-tal-root h1 { font-size: clamp(2rem,5vw,3.5rem); margin: .2rem 0; }
+.negativa-tal-root header p { color: #cbd5e1; margin: 0; }
+.negativa-tal-root .layout { display: grid; grid-template-columns: 340px 1fr; gap: 20px; }
+.negativa-tal-root .card { border-radius: 16px; box-shadow: 0 20px 45px #0006; }
+.negativa-tal-root .controls { background: #ffffff12; border: 1px solid #ffffff22; padding: 20px; display: flex; flex-direction: column; gap: 12px; }
+.negativa-tal-root .controls label { font-weight: 800; margin-top: 4px; }
+.negativa-tal-root .controls input { width: 100%; background: #0f172a; color: white; border: 1px solid #ffffff33; border-radius: 12px; padding: 12px; font-size: 1.5rem; font-weight: 800; }
+.negativa-tal-root .controls input::placeholder { color: #64748b; font-weight: 400; }
+.negativa-tal-root .operations { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 7px; width: 100%; }
+.negativa-tal-root .op { width: 100%; aspect-ratio: 1; border: 0; border-radius: 10px; background: #3f4963; color: white; padding: 0; display: grid; place-items: center; cursor: pointer; }
+.negativa-tal-root .op.active.addition { background: #16a34a; }
+.negativa-tal-root .op.active.subtraction { background: #e11d48; }
+.negativa-tal-root .op.active.multiplication { background: #7c3aed; }
+.negativa-tal-root .op.active.division { background: #0284c7; }
+.negativa-tal-root .op-svg { width: 56%; height: 56%; display: block; }
+.negativa-tal-root .op-svg path { fill: none; stroke: currentColor; stroke-width: 4; stroke-linecap: round; }
+.negativa-tal-root .op-svg circle { fill: currentColor; }
+.negativa-tal-root .hint { font-size: .75rem; color: #94a3b8; margin: 0; }
+.negativa-tal-root .explain { background: #1e1b4b; border: 1px solid #818cf833; padding: 12px; border-radius: 12px; font-size: .9rem; }
+.negativa-tal-root .actions { display: grid; gap: 8px; border-top: 1px solid #ffffff18; padding-top: 12px; }
+.negativa-tal-root .actions button, .negativa-tal-root .light { border: 0; border-radius: 8px; padding: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 8px; cursor: pointer; }
+.negativa-tal-root .actions svg, .negativa-tal-root .light svg { width: 17px; }
+.negativa-tal-root .actions button:disabled { opacity: .45; cursor: not-allowed; }
+.negativa-tal-root .primary { background: #6366f1; color: white; }
+.negativa-tal-root .amber { background: #f59e0b; color: #111827; }
+.negativa-tal-root .light { background: #ffffff1a; color: white; }
+.negativa-tal-root .visual { background: #f8fafc; color: #0f172a; padding: 28px; overflow: hidden; }
+.negativa-tal-root .calc span { color: #64748b; font-size: 1.15rem; }
+.negativa-tal-root .calc h2 { font-size: clamp(1.8rem,5vw,3rem); margin: 8px 0; white-space: nowrap; overflow-x: auto; }
+.negativa-tal-root .calc b { display: inline-block; background: #e0e7ff; color: #312e81; padding: 9px 15px; border-radius: 99px; }
+.negativa-tal-root .numberline { height: 270px; position: relative; margin: 15px 10px; }
+.negativa-tal-root .axis { position: absolute; left: 0; right: 0; top: 112px; height: 4px; background: #1e293b; }
+.negativa-tal-root .tick { position: absolute; top: 104px; transform: translateX(-50%); text-align: center; }
+.negativa-tal-root .tick i { display: block; height: 20px; border-left: 2px solid #334155; }
+.negativa-tal-root .tick span { font-size: .75rem; }
+.negativa-tal-root .marker { position: absolute; top: 28px; transform: translateX(-50%); transition: left .65s; }
+.negativa-tal-root .marker strong { display: block; background: #fbbf24; padding: 8px 12px; border-radius: 99px; }
+.negativa-tal-root .marker i { display: block; height: 54px; border-left: 4px solid #f59e0b; margin: auto; }
+.negativa-tal-root .marker.done strong { background: #10b981; color: white; }
+.negativa-tal-root .target { position: absolute; top: 30px; transform: translateX(-50%); opacity: .25; border: 2px dashed #047857; background: #d1fae5; padding: 8px; border-radius: 99px; }
+.negativa-tal-root .segment { position: absolute; top: 93px; height: 8px; background: #818cf8; border-radius: 8px; }
+.negativa-tal-root .segment.violet { background: #8b5cf6; }
+.negativa-tal-root .segment.blue { background: #0ea5e9; }
+.negativa-tal-root .message { position: absolute; top: 170px; left: 0; right: 0; text-align: center; font-weight: 700; color: #475569; }
+@media (max-width:850px) {
+  .negativa-tal-root { padding: 14px; }
+  .negativa-tal-root .layout { grid-template-columns: 1fr; }
+  .negativa-tal-root .controls { max-width: none; }
+  .negativa-tal-root .operations { gap: 5px; }
+  .negativa-tal-root .visual { padding: 18px; }
+}

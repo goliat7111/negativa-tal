@@ -1,0 +1,40 @@
+{
+  "source": "code-archive (negativa-tal-app.zip, Vite + React)",
+  "capabilities": [
+    {
+      "capability": "Interaktivt läroverktyg: negativa tal på tallinje (add/sub/mult/div)",
+      "source": "src/App.jsx",
+      "outcome": "migrate",
+      "status": "verified",
+      "next_action": "Klar"
+    },
+    {
+      "capability": "Styling",
+      "source": "src/styles.css",
+      "outcome": "migrate",
+      "status": "verified",
+      "next_action": "Klar"
+    },
+    {
+      "capability": "Databas/schema",
+      "source": "-",
+      "outcome": "not_present",
+      "status": "verified",
+      "next_action": "Ingen databas i källan"
+    },
+    {
+      "capability": "Autentisering/användare",
+      "source": "-",
+      "outcome": "not_present",
+      "status": "verified",
+      "next_action": "Ingen auth i källan"
+    },
+    {
+      "capability": "Externa tjänster/secrets",
+      "source": "-",
+      "outcome": "not_present",
+      "status": "verified",
+      "next_action": "Inga env-variabler"
+    }
+  ]
+}

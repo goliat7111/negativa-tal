@@ -213,7 +213,7 @@ function App() {
         <header>
           <div>
             <small>INTERAKTIVT LÄRARVERKTYG</small>
-            <h1>Modellera negativa tal</h1>
+            <h1>Laborera med negativa tal</h1>
             <p>Addition, subtraktion, multiplikation och division på en tallinje.</p>
           </div>
           <button className="light" onClick={reset}>

@@ -12,7 +12,10 @@
 .negativa-tal-root .controls { background: #ffffff12; border: 1px solid #ffffff22; padding: 20px; display: flex; flex-direction: column; gap: 12px; }
 .negativa-tal-root .controls label { font-weight: 800; margin-top: 4px; }
 .negativa-tal-root .controls input { width: 100%; background: #0f172a; color: white; border: 1px solid #ffffff33; border-radius: 12px; padding: 12px; font-size: 1.5rem; font-weight: 800; }
-.negativa-tal-root .controls input::placeholder { color: #64748b; font-weight: 400; }
+.negativa-tal-root .term-fields { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+.negativa-tal-root .term-fields label { min-width: 0; }
+.negativa-tal-root .controls input { height: 56px; padding-block: 0; line-height: 56px; text-align: center; }
+.negativa-tal-root .controls input::placeholder { color: #64748b; font-size: 1rem; font-weight: 400; line-height: normal; text-align: center; }
 .negativa-tal-root .operations { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 7px; width: 100%; }
 .negativa-tal-root .op { width: 100%; aspect-ratio: 1; border: 0; border-radius: 10px; background: #3f4963; color: white; padding: 0; display: grid; place-items: center; cursor: pointer; }
 .negativa-tal-root .op.active.addition { background: #16a34a; }
@@ -24,7 +27,10 @@
 .negativa-tal-root .op-svg circle { fill: currentColor; }
 .negativa-tal-root .hint { font-size: .75rem; color: #94a3b8; margin: 0; }
 .negativa-tal-root .explain { background: #1e1b4b; border: 1px solid #818cf833; padding: 12px; border-radius: 12px; font-size: .9rem; }
-.negativa-tal-root .actions { display: grid; gap: 8px; border-top: 1px solid #ffffff18; padding-top: 12px; }
+.negativa-tal-root .explain-toggle { width: 100%; }
+.negativa-tal-root .simple-explain { margin-top: 8px; background: #e0e7ff; color: #312e81; border: 1px solid #c7d2fe; padding: 12px; border-radius: 12px; font-size: .9rem; font-weight: 600; }
+.negativa-tal-root .actions { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; border-top: 1px solid #ffffff18; padding-top: 12px; }
+.negativa-tal-root .actions button:first-child, .negativa-tal-root .actions button:last-child { grid-column: 1 / -1; }
 .negativa-tal-root .actions button, .negativa-tal-root .light { border: 0; border-radius: 8px; padding: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 8px; cursor: pointer; }
 .negativa-tal-root .actions svg, .negativa-tal-root .light svg { width: 17px; }
 .negativa-tal-root .actions button:disabled { opacity: .45; cursor: not-allowed; }
@@ -35,16 +41,17 @@
 .negativa-tal-root .calc span { color: #64748b; font-size: 1.15rem; }
 .negativa-tal-root .calc h2 { font-size: clamp(1.8rem,5vw,3rem); margin: 8px 0; white-space: nowrap; overflow-x: auto; }
 .negativa-tal-root .calc b { display: inline-block; background: #e0e7ff; color: #312e81; padding: 9px 15px; border-radius: 99px; }
-.negativa-tal-root .numberline { height: 270px; position: relative; margin: 15px 10px; }
-.negativa-tal-root .axis { position: absolute; left: 0; right: 0; top: 112px; height: 4px; background: #1e293b; }
-.negativa-tal-root .tick { position: absolute; top: 104px; transform: translateX(-50%); text-align: center; }
+.negativa-tal-root .numberline { --axis-y: 112px; --axis-height: 4px; --indicator-top: 28px; --indicator-label-height: 40px; height: 270px; position: relative; margin: 15px 10px; }
+.negativa-tal-root .axis { position: absolute; left: 0; right: 0; top: var(--axis-y); height: var(--axis-height); background: #1e293b; }
+.negativa-tal-root .tick { position: absolute; top: 104px; width: 0; transform: translateX(-50%); text-align: center; }
 .negativa-tal-root .tick i { display: block; height: 20px; border-left: 2px solid #334155; }
-.negativa-tal-root .tick span { font-size: .75rem; }
-.negativa-tal-root .marker { position: absolute; top: 28px; transform: translateX(-50%); transition: left .65s; }
-.negativa-tal-root .marker strong { display: block; background: #fbbf24; padding: 8px 12px; border-radius: 99px; }
-.negativa-tal-root .marker i { display: block; height: 54px; border-left: 4px solid #f59e0b; margin: auto; }
+.negativa-tal-root .tick span { position: relative; left: 50%; display: block; width: max-content; transform: translateX(-50%); font-size: .75rem; white-space: nowrap; }
+.negativa-tal-root .marker { position: absolute; top: var(--indicator-top); transform: translateX(-50%); transition: left .65s; }
+.negativa-tal-root .marker strong { display: flex; height: var(--indicator-label-height); align-items: center; justify-content: center; background: #fbbf24; padding: 8px 12px; border-radius: 99px; }
+.negativa-tal-root .marker i { position: absolute; top: var(--indicator-label-height); left: 50%; width: 4px; height: calc(var(--axis-y) + var(--axis-height) / 2 - var(--indicator-top) - var(--indicator-label-height)); transform: translateX(-50%); background: #f59e0b; }
 .negativa-tal-root .marker.done strong { background: #10b981; color: white; }
-.negativa-tal-root .target { position: absolute; top: 30px; transform: translateX(-50%); opacity: .25; border: 2px dashed #047857; background: #d1fae5; padding: 8px; border-radius: 99px; }
+.negativa-tal-root .target { position: absolute; top: var(--indicator-top); display: flex; height: var(--indicator-label-height); align-items: center; transform: translateX(-50%); opacity: .25; border: 2px dashed #047857; background: #d1fae5; padding: 8px; border-radius: 99px; }
+.negativa-tal-root .target::after { content: ""; position: absolute; top: 100%; left: 50%; width: 2px; height: calc(var(--axis-y) + var(--axis-height) / 2 - var(--indicator-top) - var(--indicator-label-height)); transform: translateX(-50%); border-left: 2px dashed #047857; }
 .negativa-tal-root .segment { position: absolute; top: 93px; height: 8px; background: #818cf8; border-radius: 8px; }
 .negativa-tal-root .segment.violet { background: #8b5cf6; }
 .negativa-tal-root .segment.blue { background: #0ea5e9; }

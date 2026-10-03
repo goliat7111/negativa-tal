@@ -66,6 +66,7 @@ function App() {
   const [currentStep, setCurrentStep] = useState(0);
   const [playing, setPlaying] = useState(false);
   const [showTarget, setShowTarget] = useState(false);
+  const [showSimpleExplanation, setShowSimpleExplanation] = useState(false);
 
   const hasValues =
     start !== null && term !== null && Number.isFinite(start) && Number.isFinite(term);
@@ -90,6 +91,7 @@ function App() {
   const multiplicationStepSize = Math.abs(first);
   const multiplicationDirection =
     first === 0 ? 0 : Math.sign(first) * (second < 0 ? -1 : 1);
+  const multiplicationStepValue = first * Math.sign(second);
   const divisionStepSize = Math.abs(second);
   const divisionDirection = first === 0 ? 0 : Math.sign(first);
   const modelAmount = isMultiplication
@@ -160,6 +162,7 @@ function App() {
     setCurrentStep(0);
     setPlaying(false);
     setShowTarget(false);
+    setShowSimpleExplanation(false);
   };
   const readNumber = (v: string) => {
     if (v === "") return null;
@@ -174,10 +177,21 @@ function App() {
       : mode === "subtraction"
         ? `Vi startar på ${fmt(first)}. Att subtrahera ${fmt(second)} betyder en förflyttning ${second < 0 ? "åt höger" : "åt vänster"} med ${fmt(Math.abs(second))}.`
         : isMultiplication
-          ? `Från 0 gör vi ${fmt(Math.abs(second))} lika stora hopp med storleken ${fmt(Math.abs(first))}.`
+          ? `Från 0 gör vi ${fmt(Math.abs(second))} hopp. Varje hopp är ${fmt(multiplicationStepValue)}.`
           : !divisionValid
             ? "Division med 0 är inte definierad."
             : `Vi visar ${firstText} ÷ ${termText} som grupper med storleken ${fmt(Math.abs(second))}. Antalet grupper är ${fmt(Math.abs(result))}.`;
+  const simpleExplanation = !hasValues
+    ? "Ange två tal för att se hur räknesättet fungerar."
+    : mode === "addition"
+      ? `Börja på ${fmt(first)} och flytta ${fmt(Math.abs(second))} steg ${second >= 0 ? "åt höger" : "åt vänster"}.`
+      : mode === "subtraction"
+        ? `Börja på ${fmt(first)} och flytta ${fmt(Math.abs(second))} steg ${second < 0 ? "åt höger" : "åt vänster"}.`
+        : isMultiplication
+          ? `Gör ${fmt(Math.abs(second))} hopp från 0. Varje hopp är ${fmt(multiplicationStepValue)}.`
+          : !divisionValid
+            ? "Det går inte att dela med 0."
+            : `Vilket tal gånger ${fmt(second)} blir ${fmt(first)}? Svaret är ${fmt(result)}.`;
 
   const segments = Array.from({ length: Math.min(currentStep, totalStages) }, (_, i) => {
     const amount = i < fullSteps ? 1 : remainder;
@@ -222,7 +236,7 @@ function App() {
         </header>
         <div className="layout">
           <section className="controls card">
-            <label>1. Räknesätt</label>
+            <label>Räknesätt</label>
             <div className="operations">
               {operations.map(([key, label]) => (
                 <button
@@ -239,30 +253,43 @@ function App() {
                 </button>
               ))}
             </div>
-            <label>2. Första termen</label>
-            <input
-              type="number"
-              step="any"
-              value={start ?? ""}
-              placeholder="Ange värde"
-              onChange={(e) => {
-                setStart(readNumber(e.target.value));
-                restart();
-              }}
-            />
-            <label>3. Andra termen</label>
-            <input
-              type="number"
-              step="any"
-              value={term ?? ""}
-              placeholder="Ange värde"
-              onChange={(e) => {
-                setTerm(readNumber(e.target.value));
-                restart();
-              }}
-            />
+            <div className="term-fields">
+              <label>
+                1:a termen
+                <input
+                  type="number"
+                  step="any"
+                  value={start ?? ""}
+                  placeholder="Ange värde"
+                  onChange={(e) => {
+                    setStart(readNumber(e.target.value));
+                    restart();
+                  }}
+                />
+              </label>
+              <label>
+                2:a termen
+                <input
+                  type="number"
+                  step="any"
+                  value={term ?? ""}
+                  placeholder="Ange värde"
+                  onChange={(e) => {
+                    setTerm(readNumber(e.target.value));
+                    restart();
+                  }}
+                />
+              </label>
+            </div>
             <p className="hint">Heltal och decimaltal stöds.</p>
             <div className="explain">{movement}</div>
+            <button
+              className="light explain-toggle"
+              aria-expanded={showSimpleExplanation}
+              onClick={() => setShowSimpleExplanation((visible) => !visible)}
+            >
+              {showSimpleExplanation ? "Dölj enkel förklaring" : "Visa enkel förklaring"}
+            </button>
             <div className="actions">
               <button disabled={!hasValues || !divisionValid} onClick={() => setShowTarget((v) => !v)}>
                 {showTarget ? <EyeOff /> : <Eye />}
@@ -354,10 +381,13 @@ function App() {
                         : isDivision
                           ? `Hur många grupper om ${fmt(Math.abs(second))} ryms i ${fmt(Math.abs(first))}?`
                           : isMultiplication
-                            ? `Vi börjar på 0. Varje hopp är ${fmt(Math.abs(first))}.`
+                            ? `Vi börjar på 0. Varje hopp är ${fmt(multiplicationStepValue)}.`
                             : `Vi börjar på ${fmt(first)}.`}
               </div>
             </div>
+            {showSimpleExplanation && (
+              <div className="simple-explain">{simpleExplanation}</div>
+            )}
           </section>
         </div>
       </div>

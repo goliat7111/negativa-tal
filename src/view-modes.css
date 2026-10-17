@@ -1,0 +1,37 @@
+.line-view-picker {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 18px 10px 0;
+  color: #64748b;
+  font-size: 0.875rem;
+  font-weight: 700;
+}
+
+.line-view-picker button {
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  background: #fff;
+  color: #334155;
+  padding: 7px 11px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.line-view-picker button.selected {
+  border-color: #4f46e5;
+  background: #eef2ff;
+  color: #3730a3;
+}
+
+.line-view-picker button:focus-visible {
+  outline: 3px solid #a5b4fc;
+  outline-offset: 2px;
+}
+
+.tick i {
+  position: relative;
+  left: 50%;
+  width: 0;
+}
